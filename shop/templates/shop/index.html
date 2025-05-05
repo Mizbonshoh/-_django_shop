@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block main %}
+
+<main>
+<!--  Modal -->
+{% include 'components/_modal.html' %}
+
+<div class="container">
+
+        <!--- Баннер на главный экран -->
+        {% include 'shop/components/_banner.html' %}
+
+        <!-- CATEGORIES SECTION-->
+        {% include 'shop/components/_categories.html' %}
+
+
+        <!-- ТРЕНДОВЫЕ ПРОДУКТЫ-->
+        {% include 'shop/components/_trending_products.html' %}
+
+
+        <!-- УСЛУГИ-->
+        {% include 'shop/components/_services.html' %}
+
+
+        <!-- NEWSLETTER-->
+        {% include 'shop/components/_newsletter.html' %}
+
+</div>
+
+
+</main>
+{% endblock main %}

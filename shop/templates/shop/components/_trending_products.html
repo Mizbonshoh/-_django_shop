@@ -1,0 +1,14 @@
+<section class="py-5">
+  <header class="text-center">
+    <p class="small text-muted small text-uppercase mb-1">Подборки товаров</p>
+    <h2 class="h5 text-uppercase mb-4">Популярные товары</h2>
+  </header>
+  <div class="row">
+                    <!-- PRODUCT-->
+                    {% for product in top_products %}
+                    <div class="col-xl-3 col-lg-4 col-sm-5">
+                      {% include 'shop/components/_product_card.html' %}
+                    </div>
+                    {% endfor %}
+  </div>
+</section>
