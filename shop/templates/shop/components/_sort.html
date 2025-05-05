@@ -1,13 +1,42 @@
+{% load shop_tags %}
+
+{% get_subcategories category as categories %}
+
+{% get_sorted as data %}
+
+
 <div class="py-2 px-4 bg-dark text-white mb-3">
   <strong class="small text-uppercase fw-bold">
-    Fashion &amp; Acc
+    подкатегории: {{ category }}
   </strong>
 </div>
 
 <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
+  {% for category in categories %}
   <li class="mb-2">
-    <a class="reset-anchor" href="#!">
-      Women's T-Shirts
+    <a class="reset-anchor" href="?type={{ category.slug }}">
+      {{ category }}
     </a>
   </li>
+  {% endfor %}
 </ul>
+
+
+
+{% for key in data %}
+<div class="py-2 px-4 bg-dark text-white mb-3">
+  <strong class="small text-uppercase fw-bold">
+    {{ key.title }}
+  </strong>
+</div>
+
+<ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
+  {% for sorter in key.sorters %}
+  <li class="mb-2">
+    <a class="reset-anchor" href="?sort={{ sorter.0 }}">
+      {{ sorter.1 }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}
