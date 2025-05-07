@@ -5,14 +5,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                  <!-- Link--><a class="nav-link active" href="index.html">Главная</a>
+                  <!-- Link--><a class="nav-link active" href="{{ index.html }}">Главная</a>
                 </li>
 
               </ul>
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="cart.html"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Корзина<small class="text-gray fw-normal">(2)</small></a></li>
                 <li class="nav-item"><a class="nav-link" href="#!"> <i class="far fa-heart me-1"></i>Избранное<small class="text-gray fw-normal"> (0)</small></a></li>
-                <li class="nav-item"><a class="nav-link" href="#!"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Войти</a></li>
+
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'user_logout' %}"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Выйти</a></li>
+                {% else %}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'login_registration' %}"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Войти/Зарегистрироваться</a></li>
+                {% endif %}
+
               </ul>
             </div>
           </nav>

@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Цвет фона страницы */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #fff; /* Цвет фона заголовка */
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для заголовка */
+}
+
+h1 {
+    color: gold; /* Цвет заголовка */
+}
+
+form {
+    background-color: #fff; /* Цвет фона формы */
+    border-radius: 8px; /* Радиус скругления углов */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Тень для формы */
+    margin: 20px auto; /* Отступ сверху и снизу, центрирование формы */
+    max-width: 400px; /* Ширина формы */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%; /* Ширина поля ввода */
+    padding: 10px; /* Отступ внутри поля */
+    margin: 10px 0; /* Отступ сверху и снизу */
+    border: 1px solid #ccc; /* Цвет границы поля */
+    border-radius: 4px; /* Радиус скругления углов */
+}
+
+button {
+    background-color: #007bff; /* Цвет кнопки */
+    color: white; /* Цвет текста на кнопке */
+    padding: 10px; /* Отступ внутри кнопки */
+    border: none; /* Убираем границы */
+    border-radius: 4px; /* Радиус скругления углов */
+    cursor: pointer; /* Курсор при наведении */
+    width: 100%; /* Ширина кнопки */
+}
+
+button:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+footer {
+    background-color: #333; /* Цвет фона подвала */
+    color: white; /* Цвет текста подвала */
+    text-align: center; /* Центрирование текста */
+    padding: 20px 0; /* Отступ сверху и снизу */
+    position: relative; /* Относительное позиционирование */
+    bottom: 0; /* Прикрепление к нижней части */
+    width: 100%; /* Ширина подвала */
+}
+
+/* Стили для ссылок */
+footer a {
+    color: gold; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Подчеркивание ссылки при наведении */
+}

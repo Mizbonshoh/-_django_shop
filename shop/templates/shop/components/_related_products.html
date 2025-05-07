@@ -1,0 +1,9 @@
+<h2 class="h5 text-uppercase mb-4">Похожие товары</h2>
+<div class="row">
+  <!-- PRODUCT-->
+  {% for product in products %}
+  <div class="col-lg-3 col-sm-6">
+    {% include 'shop/components/_product_card.html' %}
+  </div>
+  {% endfor %}
+</div>

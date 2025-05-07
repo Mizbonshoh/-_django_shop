@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+  <section class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-6">
+          <!-- PRODUCT SLIDER-->
+          {% include 'shop/components/_product_slider.html' %}
+        </div>
+        <!-- PRODUCT DETAILS-->
+        {% include 'shop/components/_product_detail.html' %}
+      </div>
+      <!-- Информация о товаре -->
+      {% include 'shop/components/_product_description_tabs.html' %}
+
+      <!-- RELATED PRODUCTS-->
+      {% include 'shop/components/_related_products.html' %}
+
+    </div>
+    </div>
+  </section>
+</main>
+
+{% endblock main %}
