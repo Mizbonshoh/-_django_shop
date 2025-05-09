@@ -1,20 +1,16 @@
 from itertools import product
 from random import randint
 from unicodedata import category
-
+from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
-
-from .models import Category, Product
-from .forms import LoginFrom, RegistrationForm
-
-
+from .models import Category, Product, Review, FavoriteProducts
+from .forms import LoginFrom, RegistrationForm, ReviewForm
 
 
 class Index(ListView):
-
     """Главная страница"""
     model = Product
     context_object_name = 'categories'
@@ -32,7 +28,6 @@ class Index(ListView):
         context = super().get_context_data()
         context['top_products'] = Product.objects.order_by('-watched')[:8]
         return context
-
 
 class SubCategories(ListView):
     """Вывод подкатегории на отдельной страничке"""
@@ -55,7 +50,6 @@ class SubCategories(ListView):
 
         return products
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         """Дополнительные элементы"""
         context = super().get_context_data()
@@ -69,7 +63,6 @@ class ProductPage(DetailView):
     model = Product
     context_object_name = 'product'
     template_name = 'shop/product_page.html'
-
 
     def get_context_data(self, **kwargs):
         """Вывод на страничку дополнительных элементов"""
@@ -88,8 +81,10 @@ class ProductPage(DetailView):
 
         data = Product.objects.all().exclude(slug=self.kwargs['slug']).filter(category=product.category)[:5]
         context['products'] = data
+        context['reviews'] = Review.objects.filter(product=product).order_by('-pk')
+        if self.request.user.is_authenticated:
+            context['review_form'] = ReviewForm
         return context
-
 
 def login_registration(request):
     context = {'title': 'Войти или зарегистрировать',
@@ -97,7 +92,6 @@ def login_registration(request):
                'registration_form': RegistrationForm, }
 
     return render(request, 'shop/login_registration.html', context)
-
 
 def user_login(request):
     """Аутентификация"""
@@ -126,3 +120,38 @@ def user_registration(request):
             messages.error(request, form.errors[error].as_text())
         # messages.error(request, 'Что-то пошло не так')
     return redirect('login_registration')
+
+
+def save_review(request, product_pk):
+    """Сохранение отзыва"""
+    form = ReviewForm(data=request.POST)
+    if form.is_valid():
+        review = form.save(commit=False)
+        review.author = request.user
+        product = Product.objects.get(pk=product_pk)
+        review.product = product
+        review.save()
+        return redirect('product_page', product.slug)
+
+
+def save_favorite_product(request, product_slug):
+    """Добавление или удаление товара из избранных"""
+    if not request.user.is_authenticated:
+        return redirect('login_registration')  # или другая страница для неавторизованных
+
+    user = request.user
+    product = get_object_or_404(Product, slug=product_slug)
+
+    # Проверяем, есть ли уже товар в избранном
+    fav_product_exists = FavoriteProducts.objects.filter(user=user, product=product).exists()
+
+    if fav_product_exists:
+        # Удаляем из избранного
+        FavoriteProducts.objects.filter(user=user, product=product).delete()
+    else:
+        # Добавляем в избранное
+        FavoriteProducts.objects.create(user=user, product=product)
+
+    # Возвращаем на предыдущую страницу
+    next_page = request.META.get('HTTP_REFERER', 'category_detail')
+    return redirect(next_page)

@@ -80,4 +80,40 @@ class Gallery(models.Model):
         verbose_name_plural = 'Галерея товаров'
 
 
+CHOICESS = (
+    ('5', ('Отлично')),
+    ('4', ('Хорошо')),
+    ('3', ('Нормально')),
+    ('2', ('Плохо')),
+    ('1', ('Ужасно')),
+)
 
+
+class Review(models.Model):
+    """Моделька для отзывов"""
+    text = models.TextField(verbose_name='Текст')
+    grade = models.CharField(max_length=20, choices=CHOICESS, blank=True, null=True, verbose_name='Оценка')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата')
+
+    def __str__(self):
+        return self.author.username
+
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+
+class FavoriteProducts(models.Model):
+    """Избранные товары"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
+
+    def __str__(self):
+        return self.product.title
+
+    class Meta:
+        verbose_name = 'Избранный товар'
+        verbose_name_plural = 'Избранные товары'
