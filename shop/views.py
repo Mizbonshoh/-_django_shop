@@ -1,11 +1,12 @@
 from itertools import product
-from random import randint
-from unicodedata import category
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
-from .models import Category, Product, Review, FavoriteProducts
+from django.db.utils import IntegrityError
+
+from .models import Category, Product, Review, FavoriteProducts, Mail
 from .forms import LoginFrom, RegistrationForm, ReviewForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -170,3 +171,38 @@ class FavoriteProductsView(LoginRequiredMixin, ListView):
         favs = FavoriteProducts.objects.filter(user=user)
         products = [ i.product for i in favs]
         return products
+
+
+def save_subscribers(request):
+    """Собиратель почтовых адресов"""
+    email = request.POST.get('email')
+    user = request.user if request.user.is_authenticated else None
+    if email:
+        try:
+            Mail.objects.create(mail=email, user=user)
+        except IntegrityError:
+            messages.error(request, 'Вы уже являетесь подписчиком')
+    return redirect('Index')
+
+
+def send_mail_to_subscribers(request):
+    """Отправить писем подписчикам"""
+    from conf import settings
+    from django.core.mail import send_mail
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        mail_lists = Mail.objects.all()
+        for email in mail_lists:
+            print(email, '--------------------')
+            send_mail(
+                subject='У нас новая акция',
+                message=text,
+                from_email=settings.USER_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            print(f'Сообщение отправлено на почту: {email} -------- {bool(send_mail)}')
+
+
+    context = {'title': 'Спамер'}
+    return render(request, 'shop/send_mail.html', context)

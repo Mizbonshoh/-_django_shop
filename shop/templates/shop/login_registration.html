@@ -5,15 +5,7 @@
 
 {% block main %}
 <main>
-    {% if messages %}
-    <div class="container">
-        {% for message in messages %}
-        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+    {% include 'shop/components/_user_messages.html' %}
     <div class="container d-flex justify-content-around">
         <div class="login">
             <h2 class="form-title">Войти в аккаунт</h2>

@@ -117,3 +117,17 @@ class FavoriteProducts(models.Model):
     class Meta:
         verbose_name = 'Избранный товар'
         verbose_name_plural = 'Избранные товары'
+
+
+class Mail(models.Model):
+    """Почтовая рассылка"""
+    mail = models.EmailField(unique=True, verbose_name='Почта')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
+
+    def __str__(self):
+        return self.mail
+
+
+    class Meta:
+        verbose_name = 'Почта'
+        verbose_name_plural = 'Почты'

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Category, Gallery, Review
+from .models import Product, Category, Gallery, Review, Mail
 from django.utils.safestring import mark_safe
 
 
@@ -53,3 +53,10 @@ class ReviewAdmin(admin.ModelAdmin):
     """Отображение отзывов в админке"""
     list_display = ('pk', 'author', 'created_at')
     readonly_fields = ('author', 'text', 'created_at')
+
+
+@admin.register(Mail)
+class ReviewMail(admin.ModelAdmin):
+    """Почтовые подписки"""
+    list_display = ('pk', 'mail', 'user')
+    readonly_fields = ('mail', 'user')
