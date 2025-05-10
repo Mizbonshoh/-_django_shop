@@ -1,13 +1,13 @@
 from itertools import product
 from random import randint
 from unicodedata import category
-from django.shortcuts import get_object_or_404, redirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from .models import Category, Product, Review, FavoriteProducts
 from .forms import LoginFrom, RegistrationForm, ReviewForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Index(ListView):
@@ -155,3 +155,18 @@ def save_favorite_product(request, product_slug):
     # Возвращаем на предыдущую страницу
     next_page = request.META.get('HTTP_REFERER', 'category_detail')
     return redirect(next_page)
+
+class FavoriteProductsView(LoginRequiredMixin, ListView):
+    """Для вывода избранных страниц"""
+    model = FavoriteProducts
+    context_object_name = 'products'
+    template_name = 'shop/favorite_products.html'
+    login_url = 'user_registration'
+
+
+    def get_queryset(self):
+        """Получаем товары конкретного пользователя"""
+        user = self.request.user
+        favs = FavoriteProducts.objects.filter(user=user)
+        products = [ i.product for i in favs]
+        return products
