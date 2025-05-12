@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.db.utils import IntegrityError
 
 from .models import Category, Product, Review, FavoriteProducts, Mail
-from .forms import LoginFrom, RegistrationForm, ReviewForm
+from .forms import LoginFrom, RegistrationForm, ReviewForm, ShippingFrom, CustomerFrom
+from .utils import CartForAuthenticatesUser, get_cart_data
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -202,7 +203,38 @@ def send_mail_to_subscribers(request):
                 fail_silently=False,
             )
             print(f'Сообщение отправлено на почту: {email} -------- {bool(send_mail)}')
-
-
     context = {'title': 'Спамер'}
     return render(request, 'shop/send_mail.html', context)
+
+
+def cart(request):
+    """Страница корзины"""
+    cart_info = get_cart_data(request)
+    context = {'order': cart_info['order'],
+               'order_products': cart_info['order_products'],
+               'cart_total_quantity': cart_info['cart_total_quantity'],
+               'title': 'Корзина'
+               }
+
+    return render(request, 'shop/cart.html', context)
+
+def to_cart(request, product_id, action):
+    """Добавить товар в корзину"""
+    if request.user.is_authenticated:
+        CartForAuthenticatesUser(request, product_id, action)
+        return redirect('cart')
+    else:
+        messages.error(request, 'Авторизуйтесь или зарегистрируйтесь, чтобы совершать покупки')
+        return redirect('login_registration')
+    return redirect('cart')
+
+def checkout(request):
+    """Страница оформление заказа"""
+    cart_info = get_cart_data(request)
+    context = {'order': cart_info['order'],
+               'order_products': cart_info['order_products'],
+               'cart_total_quantity': cart_info['cart_total_quantity'],
+               'customer_form': CustomerFrom(),
+               'shipping_form': ShippingFrom(),
+               'title': 'Оформление заказа'}
+    return render(request, 'shop/checkout.html', context)

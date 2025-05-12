@@ -144,3 +144,4 @@ EMAIL_PORT=os.getenv('EMAIL_PORT')
 # EMAIL_USE_TLS=bool(int(os.getenv('EMAIL_USE_TLS')))
 USER_EMAIL=os.getenv('USER_EMAIL')
 USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')
+
