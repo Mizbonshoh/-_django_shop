@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+  <meta charset="UTF-8">
+  <div class="success-container">
+    <div class="success-icon">✓</div>
+    <h1>Оплата прошла успешно!</h1>
+    <p>Спасибо за ваш заказ. Мы уже начали его обработку.</p>
+
+    <a href="{% url 'Index' %}" class="btn">Вернуться на главную</a>
+</div>
+<style>
+    .success-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        margin: 20px auto;
+    }
+
+    .success-icon {
+        color: #4CAF50;
+        font-size: 72px;
+        margin-bottom: 20px;
+    }
+
+    .success-container h1 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 28px;
+    }
+
+    .success-container p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .order-details {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .detail-label {
+        color: #777;
+    }
+
+    .detail-value {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .btn {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn:hover {
+        background: #45a049;
+    }
+
+    @media (max-width: 480px) {
+        .success-container {
+            padding: 30px 20px;
+        }
+
+        .success-container h1 {
+            font-size: 24px;
+        }
+    }
+</style>
+</main>
+{% endblock main %}

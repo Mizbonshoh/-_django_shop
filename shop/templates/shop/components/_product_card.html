@@ -7,6 +7,7 @@
     <img class="img-fluid w-100" src="{{ product.get_first_photo }}" alt="..."></a>
     <div class="product-overlay">
       <ul class="mb-0 list-inline">
+
         {% if request.user.is_authenticated %}
           {% get_favorite_products request.user as fav_products %}
         {% endif %}
@@ -16,8 +17,8 @@
         {% else %}
         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{% url 'add_favorite' product.slug %}"><i class="far fa-heart"></i></a></li>
         {% endif %}
+
         <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{% url 'to_cart' product.pk 'add' %}">Добавить в корзину</a></li>
-        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-bs-toggle="modal"><i class="fas fa-expand"></i></a></li>
       </ul>
     </div>
   </div>

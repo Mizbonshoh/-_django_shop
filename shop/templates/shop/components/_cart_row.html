@@ -7,9 +7,6 @@
                         <td class="p-3 align-middle border-light">
                           <p class="mb-0 small">${{ item.product.price }}</p>
                         </td>
-
-
-
                         <div class="row">
                             <td class="p-3 align-middle border-light">
                                 {% if 'cart' in request.path %}
@@ -21,9 +18,6 @@
                                 {% endif %}
                             </td>
                         </div>
-
-
-
                         <td class="p-3 align-middle border-light">
                           <p class="mb-0 small">${{ item.get_total_price }}</p>
                         </td>

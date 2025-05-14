@@ -18,9 +18,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.getenv('DEBUG')))
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES = [
+STATICFILES_DIRS = [
     BASE_DIR / 'shop/static'
 ]
 
@@ -145,3 +145,6 @@ EMAIL_PORT=os.getenv('EMAIL_PORT')
 USER_EMAIL=os.getenv('USER_EMAIL')
 USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')
 
+#STRIPE
+STRIPE_PUBLIC_KEY=os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY')
