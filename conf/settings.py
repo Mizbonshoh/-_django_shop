@@ -14,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-8t5=dp7l31sfut&)@4pam=i52ledg(k^jmz@85ku(kd*3mw)k!'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,22 +72,22 @@ WSGI_APPLICATION = "conf.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),  # Если создавали
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),  # Если создавали
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': os.getenv('DB_HOST'),
+#         'PORT': os.getenv('DB_PORT'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -136,15 +136,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
-EMAIL_HOST=os.getenv('EMAIL_HOST')
-EMAIL_PORT=os.getenv('EMAIL_PORT')
-# EMAIL_USE_TLS=bool(int(os.getenv('EMAIL_USE_TLS')))
-USER_EMAIL=os.getenv('USER_EMAIL')
-USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')
-
-#STRIPE
-STRIPE_PUBLIC_KEY=os.getenv('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY')
+# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.smpt.EmailBackend'
+# EMAIL_HOST=os.getenv('EMAIL_HOST')
+# EMAIL_PORT=os.getenv('EMAIL_PORT')
+# # EMAIL_USE_TLS=bool(int(os.getenv('EMAIL_USE_TLS')))
+# USER_EMAIL=os.getenv('USER_EMAIL')
+# USER_EMAIL_PASSWORD=os.getenv('USER_EMAIL_PASSWORD')
+#
+# #STRIPE
+# STRIPE_PUBLIC_KEY=os.getenv('STRIPE_PUBLIC_KEY')
+# STRIPE_SECRET_KEY=os.getenv('STRIPE_SECRET_KEY')
