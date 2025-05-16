@@ -1,6 +1,6 @@
 from .models import Product, OrderProduct, Order, Customer
 
-class CartForAuthenticatesUser:
+class CartForAuthenticatedUser:
     """Логика корзины"""
     def __init__(self, request, product_id=None, action=None):
         self.user = request.user
@@ -53,7 +53,7 @@ class CartForAuthenticatesUser:
 
 def get_cart_data(request):
     """Вывод товара с корзины на страницу"""
-    cart = CartForAuthenticatesUser(request)
+    cart = CartForAuthenticatedUser(request)
     cart_info = cart.get_cart_info()
 
     return {'order': cart_info['order'],
